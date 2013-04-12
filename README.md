@@ -1,9 +1,10 @@
 ofxDirectoryWatcher
 ===================
 
-A Directory Watcher Addon using Pure POCO.
+A Directory Watcher Addon.
 
+NOTE: Currently implemented with https://code.google.com/p/simplefilewatcher
 
-Waiting for 1.4.6+
+Will use Poco::DirectoryWatcher as soon as the openFrameworks core moves past 1.4.6+
 
 http://pocoproject.org/docs/Poco.DirectoryWatcher.html
