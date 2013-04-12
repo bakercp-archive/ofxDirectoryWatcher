@@ -40,7 +40,7 @@
 	//--------
 	FileWatcher::FileWatcher()
 	{
-        interval = 5000;
+        interval = 1000;
         lastCheck = 0;
 		mImpl = new FILEWATCHER_IMPL();
         ofAddListener(ofEvents().update, this, &FileWatcher::update);
