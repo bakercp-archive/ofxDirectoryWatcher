@@ -166,17 +166,17 @@
 		if(IN_CLOSE_WRITE & action)
 		{
 			watch->mListener->handleFileAction(watch->mWatchID, watch->mDirName, filename,
-								Actions::Modified);
+								FileWatcher::Modified);
 		}
 		if(IN_MOVED_TO & action || IN_CREATE & action)
 		{
 			watch->mListener->handleFileAction(watch->mWatchID, watch->mDirName, filename,
-								Actions::Add);
+								FileWatcher::Add);
 		}
 		if(IN_MOVED_FROM & action || IN_DELETE & action)
 		{
 			watch->mListener->handleFileAction(watch->mWatchID, watch->mDirName, filename,
-								Actions::Delete);
+								FileWatcher::Delete);
 		}
 	}
 //
