@@ -140,7 +140,7 @@
 		pWatch = static_cast<WatchStruct*>(HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, ptrsize));
 
 		pWatch->mDirHandle = CreateFile(szDirectory, FILE_LIST_DIRECTORY,
-			FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, 
+			FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
 			OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED, NULL);
 
 		if (pWatch->mDirHandle != INVALID_HANDLE_VALUE)
@@ -243,20 +243,20 @@
 	//--------
 	void FileWatcherWin32::handleAction(WatchStruct* watch, const String& filename, unsigned long action)
 	{
-		Action fwAction;
+		FileWatcher::Action fwAction;
 
 		switch(action)
 		{
 		case FILE_ACTION_RENAMED_NEW_NAME:
 		case FILE_ACTION_ADDED:
-			fwAction = Actions::Add;
+			fwAction = FileWatcher::Add;
 			break;
 		case FILE_ACTION_RENAMED_OLD_NAME:
 		case FILE_ACTION_REMOVED:
-			fwAction = Actions::Delete;
+			fwAction = FileWatcher::Delete;
 			break;
 		case FILE_ACTION_MODIFIED:
-			fwAction = Actions::Modified;
+			fwAction = FileWatcher::Modified;
 			break;
 		};
 
