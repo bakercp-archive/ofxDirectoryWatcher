@@ -25,50 +25,59 @@
 
 #include "ofxDirectoryWatcher.h"
 
-
-////------------------------------------------------------------------------------
-//ofxDirectoryWatcher::ofxDirectoryWatcher(const string& path,
-//                                         int eventMask,
-//                                         int scanInterval)
-//{
-//    
-//}
-//
-////------------------------------------------------------------------------------
-//ofxDirectoryWatcher::ofxDirectoryWatcher(const ofDirectory& direcotry,
-//                                         int eventMask,
-//                                         int scanInterval)
-//{
-//    
-//}
-
-ofxDirectoryWatcher::ofxDirectoryWatcher() :
-_bIsWatching(false),
-_directory(ofDirectory(""))
+//------------------------------------------------------------------------------
+ofxDirectoryWatcher::ofxDirectoryWatcher()
+: _bIsWatching(false)
+, _directory(ofDirectory(""))
 {
-    
 }
 
 
 //------------------------------------------------------------------------------
-ofxDirectoryWatcher::~ofxDirectoryWatcher() {
-    
+ofxDirectoryWatcher::~ofxDirectoryWatcher()
+{
 }
 
 //------------------------------------------------------------------------------
-void ofxDirectoryWatcher::watch(const string& directory,
+void ofxDirectoryWatcher::setup(const string& directory,
+                                bool bListItemsOnStartup,
                                 int eventMask,
-                                int scanInterval) {
-    
-    currentWatch = addWatch(directory,
-                            new SimpleFileWatchListener(this,events));
+                                int scanInterval)
+{
+
+    setup(ofDirectory(directory),
+          bListItemsOnStartup,
+          eventMask,
+          scanInterval);
 }
 
 //------------------------------------------------------------------------------
-void ofxDirectoryWatcher::watch(const ofDirectory& directory,
+void ofxDirectoryWatcher::setup(const ofDirectory& directory,
+                                bool bListItemsOnStartup,
                                 int eventMask,
-                                int scanInterval) {
-    
+                                int scanInterval)
+{
+    try {
+
+        if(!_bIsWatching) {
+            _bIsWatching = true;
+            _currentWatch = addWatch(directory.getAbsolutePath(),this);
+            if(bListItemsOnStartup) {
+                ofDirectory myDirectory(directory);
+                size_t numFiles = myDirectory.listDir();
+                for(size_t i = 0; i < numFiles; i++) {
+                    ofFile f = myDirectory[i];
+                    ofxDirectoryItemEvent event(f,DW_ITEM_ADDED);
+                    ofNotifyEvent(events.onDirectoryItemAdded,event,this);
+                }
+            }
+        } else {
+            ofLogError("ofxDirectoryWatcher::watch") << "Already watching " << directory.getAbsolutePath();
+        }
+    } catch(const Poco::FileNotFoundException& exc) {
+        ofNotifyEvent(events.onDirectoryScanError,exc,this);
+        _bIsWatching = false;
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -76,9 +85,3 @@ const ofDirectory& ofxDirectoryWatcher::getDirectory() const
 {
     return _directory;
 }
-
-////------------------------------------------------------------------------------
-//int ofxDirectoryWatcher::getEventMask() const
-//{
-//    return _eventMask;
-//}
