@@ -96,52 +96,9 @@ public:
     ofEvent<const ofxDirectoryItemEvent> onDirectoryItemModified;
     ofEvent<const ofxDirectoryItemMoveEvent> onDirectoryItemMovedFrom;
     ofEvent<const ofxDirectoryItemMoveEvent> onDirectoryItemMovedTo;
-    ofEvent<const Exception>         onDirectoryScanError;
+    ofEvent<const Exception>            onDirectoryScanError;
     
 };
-
-//class ofxDirectoryWatcher;
-//
-//
-//class SimpleFileWatchListener : public FileWatchListener {
-//public:
-//    SimpleFileWatchListener(ofxDirectoryWatcher* p, ofxDirectoryEvents& events)
-//    : _p(p)
-//    , _events(events)
-//    {
-//    }
-//    
-//    virtual ~SimpleFileWatchListener() {}
-//    
-//    void handleFileAction(WatchID watchid,
-//                          const string& dir,
-//                          const string& filename,
-//                          FileWatcher::Action action) {
-//        ofxDirectoryEventType evt = (ofxDirectoryEventType)0;
-//        ofFile f(dir + filename);
-//
-//        // not all events are supported yet
-//        if(action == FileWatcher::Add) {
-//            evt = DW_ITEM_ADDED;
-//            ofxDirectoryItemEvent event(f,evt);
-//            ofNotifyEvent(_events.onDirectoryItemAdded,event,_p);
-//        } else if(action == FileWatcher::Delete) {
-//            evt = DW_ITEM_REMOVED;
-//            ofxDirectoryItemEvent event(f,evt);
-//            ofNotifyEvent(_events.onDirectoryItemRemoved,event,_p);
-//        } else if(action == FileWatcher::Modified) {
-//            evt = DW_ITEM_MODIFIED;
-//            ofxDirectoryItemEvent event(f,evt);
-//            ofNotifyEvent(_events.onDirectoryItemModified,event,_p);
-//        } else {
-//            ofLogError("SimpleFileWatchListener::handleFileAction") << "Unknown FileWatcher::Action: " << action;
-//        }
-//    }
-//
-//private:
-//    ofxDirectoryWatcher* _p;
-//    ofxDirectoryEvents& _events;
-//};
 
 
 class ofxDirectoryWatcher : public FileWatcher, public FileWatchListener {
