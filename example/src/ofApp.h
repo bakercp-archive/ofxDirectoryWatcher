@@ -18,11 +18,11 @@ public:
     void gotMessage(ofMessage msg);
 
     void onDirectoryItemAdded(const ofxDirectoryItemEvent& evt) {
-        ofSendMessage("Added: " + evt.item.getAbsolutePath());
+        ofSendMessage("Added:    " + evt.item.getAbsolutePath());
     }
     
     void onDirectoryItemRemoved(const ofxDirectoryItemEvent& evt) {
-        ofSendMessage("Removed: " + evt.item.getAbsolutePath());
+        ofSendMessage("Removed:  " + evt.item.getAbsolutePath());
     }
     
     void onDirectoryItemModified(const ofxDirectoryItemEvent& evt) {
