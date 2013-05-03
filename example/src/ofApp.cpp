@@ -9,11 +9,10 @@ void ofApp::setup(){
 
     watcher.RegisterBrowseServiceEvents(this);
 
-    ofDirectory dir("");
-    ofFile file("");
+    string folderToWatch = ofToDataPath("",true);
+    bool   bListAllFilesImmediately = true;
 
-    watcher.setup(ofToDataPath("",true),true);
-
+    watcher.setup(folderToWatch,bListAllFilesImmediately);
 }
 
 //------------------------------------------------------------------------------
@@ -23,9 +22,7 @@ void ofApp::draw(){
 
     int y = TXT_HEIGHT;
     for(size_t i = 0; i < messages.size(); i++) {
-
         ofSetColor(ofMap(i, 0, messages.size(), 255, 90));
-
         ofDrawBitmapString(messages[i], 10, y);
         y += TXT_HEIGHT;
     }
@@ -42,6 +39,5 @@ void ofApp::gotMessage(ofMessage msg){
     while(messages.size() > numLines) {
         messages.pop_back();
     }
-
 
 }
