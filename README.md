@@ -1,6 +1,10 @@
 ofxDirectoryWatcher
 ===================
 
+NOTE: DEVELOPMENT OF THIS ADDON HAS BEEN MOVED TO ofxIO https://github.com/bakercp/ofxIO
+
+==
+
 A Directory Watcher Addon.
 
 NOTE: Currently implemented with https://code.google.com/p/simplefilewatcher
